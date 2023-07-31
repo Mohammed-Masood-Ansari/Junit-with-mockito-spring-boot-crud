@@ -1,7 +1,8 @@
-package com.spring.springbootsimpleproject.service;
+package com.spring.springbootsimpleproject.dao;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -12,11 +13,12 @@ import java.util.Optional;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Answers;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
-import com.spring.springbootsimpleproject.dao.EmployeeDao;
 import com.spring.springbootsimpleproject.dto.Employee;
 import com.spring.springbootsimpleproject.repository.EmployeeRespository;
 
@@ -98,13 +100,6 @@ class EmployeeDaoTest {
 	}
 
 	@Test
-	void testDeleteEmployeeById() {
-		mock(Employee.class);
-		mock(EmployeeRespository.class);
-		//when(employeeRespository.del).thenReturn(employees);
-	}
-
-	@Test
 	void testUpdateEmployee() {
 		mock(Employee.class);
 		mock(EmployeeRespository.class);
@@ -127,6 +122,20 @@ class EmployeeDaoTest {
 		mock(EmployeeRespository.class);
 		when(employeeRespository.orderByEmployeeName()).thenReturn(employees);
 		assertThat(employeeDao.orderByEmployeeName().get(0).getEmployeeName()).isEqualTo(employees.get(0).getEmployeeName());
+	}
+	
+	/*
+	 * delete method testing 
+	 */
+	@Test
+	void testDeleteEmployeeById() {
+		mock(Employee.class);
+		mock(EmployeeRespository.class, Mockito.CALLS_REAL_METHODS);
+		
+		doAnswer(Answers.CALLS_REAL_METHODS).when(
+				employeeRespository).deleteById(any());
+		
+		assertThat(employeeDao.deleteEmployeeById(employee1.getEmployeeId()));
 	}
 
 }

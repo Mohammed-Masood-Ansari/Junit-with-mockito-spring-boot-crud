@@ -1,14 +1,12 @@
 package com.spring.springbootsimpleproject.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.springbootsimpleproject.dao.EmployeeDao;
 import com.spring.springbootsimpleproject.dto.Employee;
-import com.spring.springbootsimpleproject.repository.EmployeeRespository;
 
 @Service
 public class EmployeeService {
@@ -16,8 +14,9 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeDao employeeDao;
 
-	public EmployeeService(EmployeeRespository employeeRespository) {
+	public EmployeeService(EmployeeDao employeeDao) {
 	
+		this.employeeDao=employeeDao;
 	}
 
 	/*
