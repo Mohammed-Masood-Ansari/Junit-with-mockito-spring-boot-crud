@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Repository;
 
 import com.spring.springbootsimpleproject.dto.Employee;
@@ -85,4 +87,14 @@ public class EmployeeDao {
 	public List<Employee> orderByEmployeeName(){
 		return employeeRespository.orderByEmployeeName();
 	}
+	
+	/*
+	 * sortByPhone
+	 */
+	public List<Employee> getAllEmployeeSortByPhone() {
+		return employeeRespository.findAll(Sort.by(Direction.DESC));
+	}
+	
+	
+	
 }

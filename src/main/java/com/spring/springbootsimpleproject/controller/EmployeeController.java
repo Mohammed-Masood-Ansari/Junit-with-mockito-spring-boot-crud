@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.springbootsimpleproject.dao.EmployeeDao;
 import com.spring.springbootsimpleproject.dto.Employee;
 import com.spring.springbootsimpleproject.service.EmployeeService;
 
@@ -22,6 +25,9 @@ public class EmployeeController {
 	
 	@Autowired
 	private EmployeeService employeeService;
+	
+	@Autowired
+	private EmployeeDao employeeDao;
 	
 	@RequestMapping(value = "/data")
 	public String getData() {
@@ -92,5 +98,13 @@ public class EmployeeController {
 	@GetMapping("/orderByEmployeeName")
 	public List<Employee> orderByEmployeeName(){
 		return employeeService.orderByEmployeeName();
+	}
+	
+	/*
+	 * sortByPhone
+	 */
+	@GetMapping(value = "/sortByPhoneDesc")
+	public List<Employee> getAllEmployeeSortByPhone() {
+		return employeeDao.getAllEmployeeSortByPhone();
 	}
 }
